@@ -1,37 +1,37 @@
-{
-    "0": {
+[
+    {
         "level": "Level 0",
-        "text": "qweqweqwe$qweqwe",
+        "text": "q$q$q$q$q$q$q",
         "background": ""
     },
-    "1": {
-        "level": "Level 0",
-        "text": "abcdefghijklmnopqrstuvwxyz",
+    {
+        "level": "Level 1",
+        "text": "q$q$q$q$q$q$q",
         "background": ""
     },
-    "2": {
-        "level": "Level 0",
-        "text": "All Work And No Play Makes Jack A Dull Boy",
+    {
+        "level": "Level 2",
+        "text": "q$q$q$q$q$q$q",
         "background": ""
     },
-    "3": {
-        "level": "Level 0",
-        "text": "The quick brown fox jumps over the lazy dog.$Glib jocks quiz nymph to vex dwarf.$How vexingly quick daft zebras jump!",
+    {
+        "level": "Level 3",
+        "text": "q$q$q$q$q$q$q",
         "background": ""
     },
-    "4": {
-        "level": "Level 0",
-        "text": "Shall I compare thee to a summer's day?$Thou art more lovely and more temperate.$Rough winds do shake the darling buds of May,$And summer's lease hath all too short a date.",
+    {
+        "level": "Level 4",
+        "text": "q$q$q$q$q$q$q",
         "background": ""
     },
-    "5": {
-        "level": "Level 0",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    {
+        "level": "Level 5",
+        "text": "q$q$q$q$q$q$q",
         "background": ""
     },
-    "6": {
-        "level": "Level 0",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    {
+        "level": "Level 6",
+        "text": "q$q$q$q$q$q$q",
         "background": ""
     }
-}
+]

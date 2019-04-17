@@ -1,22 +1,24 @@
 <template>
     <div id="home-wrapper" class="component-wrapper">
-        <div id="home-bg" class="bg"></div>
-        <div class="center-ctn">
-            <div class="home-titles">
-                <div class="home-title-lg">Fox Run</div>
-                <div class="home-title-sm">test your typing speed</div>
-            </div>
-            <div class="select-btn-group">
-                <div class="select-btn start">
-                    start
+        <div class="bg home-bg"></div>
+        <transition name="center-tr">
+            <div class="home-center-ctn">
+                <div class="home-titles">
+                    <div class="home-title-lg">Fox Run</div>
+                    <div class="home-title-sm">test your typing speed</div>
                 </div>
-                <div class="select-btn see-lv">
-                    see level
+                <div class="home-btn-group">
+                    <div class="home-btn start">
+                        start
+                    </div>
+                    <div class="home-btn see-lv">
+                        see level
+                    </div>
                 </div>
             </div>
-        </div>
-        <div v-for="(v, k) in levels" :key="k" style="border: 1px solid red" @click="goToLevel(k)">
-            <div>{{k}}</div>
+        </transition>
+        <div v-for="(v, i) in levels" :key="i" style="border: 1px solid red" @click="goToLevel(i)">
+            <div>{{i}}</div>
             <div>{{v.text}}</div>
         </div>
     </div>
@@ -37,18 +39,17 @@ export default {
     },
     methods: {
         goToLevel(lv) {
-            console.log(lv)
-            this.$router.push({name: 'levels', params: {lv: lv}})
+            this.$router.push({path: `/levels/${lv}`})
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-#home-bg {
-    background: #f0e0d0
+.home-bg {
+    background: #e9ac73;
 }
-.center-ctn > * {
+.home-center-ctn > * {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,10 +66,10 @@ export default {
         font-size: 2em;
     }
 }
-.select-btn-group {
+.home-btn-group {
     flex-direction: row;
     border: 1px solid blue;
-    .select-btn {
+    .home-btn {
         height: 60px;
         width: 180px;
         border: 1px solid green;
@@ -84,6 +85,10 @@ export default {
         margin: 0 20px;
     }
 }
-
-
+.center-tr-leave-active {
+    transition: 300ms ease;
+}
+.center-tr-to {
+    background: #ff0000;
+}
 </style>

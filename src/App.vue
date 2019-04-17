@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -14,10 +16,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-}
-#app {
-  display: flex;
-  justify-content: center;
+  background:#a0a0a0;
 }
 .bg {
   display: block;
@@ -28,13 +27,22 @@ body {
   left: 0;
   z-index: -100;
 }
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .component-wrapper {
   height: 100%;
-  width: 70%;
-  min-width: 600px;
-  max-width: 900px;
-
+  width: 768px;
   box-sizing: border-box;
   border: 1px solid #a0f0f0;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: 600ms ease;
+}
+
+.fade-enter, .fade-leave {
+  opacity: 0
 }
 </style>
