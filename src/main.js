@@ -1,17 +1,19 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import Home from '@/components/Home'
+import Levels from '@/components/Levels'
+import Bar from '@/components/Bar'
 
 Vue.use(VueRouter)
 
 Vue.config.productionTip = false
 
-import Foo from './components/Foo'
-import Bar from './components/Bar'
 
 const routes = [
-  {path: '/foo', component: Foo},
-  {path: '/bar', component: Bar},
+  {path: '/', name: 'home', component: Home},
+  {path: '/levels/:lv', name: 'levels', component: Levels},
+  {path: '*', name: 'bar', component: Bar}
 ]
 
 const router = new VueRouter({
