@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div class="bg bg-levels-container"></div>
-        
         <transition name="levels-tr">
             <router-view></router-view>
         </transition>
@@ -26,9 +24,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bg-levels-container {
-    background: #d0a0e0;
-}
 .lvs-enter, .lvs-to {
   opacity: 0;
 }

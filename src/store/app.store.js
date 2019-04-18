@@ -19,6 +19,20 @@ const store = new Vuex.Store({
         addNewKeyIn(state, payload) {
             state.record[payload.level].push(payload.newKeyIn)
         }
+    },
+    actions: {
+        resetAllRecords({state}) {
+            // why this works but not forEach?
+            state.record [
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                []
+            ]
+        }
     }
 })
 

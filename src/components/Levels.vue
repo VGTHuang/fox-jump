@@ -2,6 +2,7 @@
     <div id="level-wrapper" class="component-wrapper">
         <div class="back-to-home-btn" @click="backToHome"><div>Back to home</div></div>
         <div class="level-ctn">{{this.levelName}}</div>
+        <background :lv="currentLevel" />
         <div class="level-text-ctn">
             <div class="level-text-box" @mousewheel="mouseScroll">
                 <div class="level-text-scroll" id="scroll" :style="{marginTop: scrollTop+'px'}">
@@ -19,13 +20,14 @@
 
 <script>
 import json from '@/assets/levels.json'
-import { mapState } from 'vuex'
 import IndividualChart from './charts/IndividualChart.vue'
+import Background from './Background.vue'
 
 export default {
     name: 'Level',
     components: {
-        IndividualChart
+        IndividualChart,
+        Background
     },
     data() {
         return {
@@ -39,11 +41,6 @@ export default {
             spans: [],
             time: 0,          // records interval between 2 examine() in milliseconds
         }
-    },
-    computed: {
-        ...mapState({
-            myLevelRecord: function(state) {return state.record[this.currentLevel]}
-        })
     },
     created() {
         window.addEventListener('keypress', this.examine, true)
@@ -68,8 +65,6 @@ export default {
             this.examineIndex = 0
             this.chars = this.text.split('')
             this.time = 0
-            // graph
-            
         },
         mount() {
             this.spans = document.getElementById('scroll').getElementsByTagName('span')
@@ -161,6 +156,7 @@ export default {
         },
         backToHome() {
             this.$router.push({name: 'home'})
+            this.$store.dispatch('resetAllRecords')
         }
     },
     beforeDestroy() {

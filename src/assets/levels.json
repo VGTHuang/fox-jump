@@ -2,36 +2,36 @@
     {
         "level": "Level 0",
         "text": "q$q$q$q$q$q$q",
-        "background": ""
+        "bgColor": "red"
     },
     {
         "level": "Level 1",
         "text": "q$q$q$q$q$q$q",
-        "background": ""
+        "bgColor": "green"
     },
     {
         "level": "Level 2",
         "text": "q$q$q$q$q$q$q",
-        "background": ""
+        "bgColor": "purple"
     },
     {
         "level": "Level 3",
         "text": "Shall I compare thee to a summer's day?$Thou art more lovely and more temperate.$Rough winds do shake the darling buds of May,$And summer's lease hath all too short a date.",
-        "background": ""
+        "bgColor": "cyan"
     },
     {
         "level": "Level 4",
         "text": "q$q$q$q$q$q$q",
-        "background": ""
+        "bgColor": "blue"
     },
     {
         "level": "Level 5",
         "text": "q$q$q$q$q$q$q",
-        "background": ""
+        "bgColor": "orange"
     },
     {
         "level": "Level 6",
         "text": "q$q$q$q$q$q$q",
-        "background": ""
+        "bgColor": "magenta"
     }
 ]

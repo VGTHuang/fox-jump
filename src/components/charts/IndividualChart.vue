@@ -1,7 +1,10 @@
 <template>
+<div>
+    <button @click="asd">asd</button>
     <svg ref="chart">
         
     </svg>
+</div>
 </template>
 
 <script>
@@ -32,6 +35,8 @@ export default {
         })
     },
     mounted() {
+        console.log('chart mounted')
+        
         this.chart = d3.select(this.$refs.chart)
             .attr('height', 200)
             .attr('width', 700)
@@ -57,6 +62,12 @@ export default {
     },
     watch: {
         data: function() {
+            console.log('data change detected')
+            this.joinNewData()
+        }
+    },
+    methods: {
+        joinNewData() {
             if(this.data[this.data.length-1] && this.data[this.data.length-1][2] > this.yMax) {
                 this.yMax = this.data[this.data.length-1][2]
             }
@@ -70,7 +81,7 @@ export default {
             this.path.data([this.data])
                 .attr('d', this.line)
             
-            if(!this.data[this.data.length-1][1]) {
+            if(this.data[this.data.length-1] && !this.data[this.data.length-1][1]) {
                 // error input
                 this.errorData.push([this.data[this.data.length-1][2], this.data.length-1])
             }
@@ -81,13 +92,14 @@ export default {
                 .attr('cx', d => this.xScale(d[1]))
                 .attr('cy', d => this.yScale(d[0]))
                 .attr('r', 4)
-        }
-    },
-    methods: {
+        },
         reset() {
             this.yMax = 0
             this.errorData = []
             this.errors.selectAll('circle').remove()
+        },
+        asd() {
+            console.log(this.data)
         }
     }
 }
