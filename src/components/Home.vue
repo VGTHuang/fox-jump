@@ -8,7 +8,7 @@
                     <div class="home-title-sm">test your typing speed</div>
                 </div>
                 <div class="home-btn-group">
-                    <div class="home-btn start">
+                    <div class="home-btn start" @click="goToLevel(0)">
                         start
                     </div>
                     <div class="home-btn see-lv">

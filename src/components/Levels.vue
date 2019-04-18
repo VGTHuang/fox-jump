@@ -3,7 +3,7 @@
         <div class="back-to-home-btn" @click="backToHome"><div>Back to home</div></div>
         <div class="level-ctn">{{this.levelName}}</div>
         <div class="level-text-ctn">
-            <div class="level-text-box" @mousewheel="MouseScroll">
+            <div class="level-text-box" @mousewheel="mouseScroll">
                 <div class="level-text-scroll" id="scroll" :style="{marginTop: scrollTop+'px'}">
                     <span v-for="(d, i) in chars" :key="i" :class="{finished: isFinished(i)}"><div class="space" v-if="isSpace(d)"></div>{{d===" "?"":(d==="$"? '&#8626;':d)}}<br v-if="isBreak(d)"/></span>
                 </div>
@@ -33,11 +33,11 @@ export default {
             level: {},        // level details
             levelName: "",    // "level 3"
             text: "",
-            assertIndex: 0,
+            examineIndex: 0,
             chars: [],
             scrollTop: 300,
             spans: [],
-            time: 0,          // records interval between 2 assert() in milliseconds
+            time: 0,          // records interval between 2 examine() in milliseconds
         }
     },
     computed: {
@@ -46,7 +46,7 @@ export default {
         })
     },
     created() {
-        window.addEventListener('keypress', this.assert, true)
+        window.addEventListener('keypress', this.examine, true)
         this.initialize()
     },
     mounted() {
@@ -65,7 +65,7 @@ export default {
             this.level = json[this.currentLevel]
             this.levelName = this.level.level
             this.text = this.level.text
-            this.assertIndex = 0
+            this.examineIndex = 0
             this.chars = this.text.split('')
             this.time = 0
             // graph
@@ -83,21 +83,21 @@ export default {
             return d==="$"
         },
         isFinished(i) {
-            return i < this.assertIndex
+            return i < this.examineIndex
         },
-        assert(key) {
+        examine(key) {
             var code = key.which || key.keyCode
             // if already finised
-            if(!this.chars[this.assertIndex]) {
+            if(!this.chars[this.examineIndex]) {
                 console.log("already finished!")
             }
             // is line break, expect code === 13
-            else if(this.chars[this.assertIndex] === "$") {
+            else if(this.chars[this.examineIndex] === "$") {
                 code === 13?this.pushForward(code):this.pushBackward()
             }
             // not line break
             else {
-                this.chars[this.assertIndex] === String.fromCharCode(code)?this.pushForward(code):this.pushBackward()
+                this.chars[this.examineIndex] === String.fromCharCode(code)?this.pushForward(code):this.pushBackward()
             }
         },
         pushForward(code) {
@@ -105,27 +105,27 @@ export default {
             var now = Date.now()
             this.$store.commit('addNewKeyIn', {
                 level: this.currentLevel,
-                newKeyIn: {
-                    code: this.chars[this.assertIndex],
-                    success: true,
-                    timeGap: this.time === 0?0:(now-this.time)
-                }
+                newKeyIn: [
+                    this.chars[this.examineIndex],
+                    true,
+                    this.time === 0?0:(now-this.time)
+                ]
             })
             this.time = now
             // get element position and scroll text-scroll to that position
             if(code !== 32) {
                 // don't scroll when code is a space (because inline block)
-                this.scrollTop = 100-this.spans[this.assertIndex].offsetTop
+                this.scrollTop = 100-this.spans[this.examineIndex].offsetTop
             }
             if(code === 13) {
                 // is line break; jumps to next line
-                if(this.chars[this.assertIndex+1]) {
-                    this.scrollTop = 100-this.spans[this.assertIndex+1].offsetTop
+                if(this.chars[this.examineIndex+1]) {
+                    this.scrollTop = 100-this.spans[this.examineIndex+1].offsetTop
                 }
             }
-            this.assertIndex++;
+            this.examineIndex++;
             // if level is finished
-            if(!this.chars[this.assertIndex]) {
+            if(!this.chars[this.examineIndex]) {
                 console.log("finished")
                 console.log(this.$store.state)
                 if(this.currentLevel+1 >= json.length) {
@@ -141,17 +141,17 @@ export default {
             var now = Date.now()
             this.$store.commit('addNewKeyIn', {
                 level: this.currentLevel,
-                newKeyIn: {
-                    code: this.chars[this.assertIndex],
-                    success: false,
-                    timeGap: this.time === 0?0:(now-this.time)
-                }
+                newKeyIn: [
+                    this.chars[this.examineIndex],
+                    false,
+                    this.time === 0?0:(now-this.time)
+                ]
             })
             this.time = now
-            this.assertIndex = 0
+            this.examineIndex = 0
             this.scrollTop = 100-this.spans[0].offsetTop
         },
-        MouseScroll(e) {
+        mouseScroll(e) {
             if(e && e.deltaY > 0) {
                 this.scrollTop -= 50
             }
@@ -160,19 +160,13 @@ export default {
             }
         },
         backToHome() {
-            window.removeEventListener('keypress', this.assert, true)
             this.$router.push({name: 'home'})
         }
     },
-    beforeRouterLeave() {
-        console.log("before leave")
-        window.removeEventListener('keypress', this.assert, true)
-        this.assertIndex = 0
-        this.chars = []
-        this.scrollTop = 300
-        this.spans = []
-    },
-    
+    beforeDestroy() {
+        window.removeEventListener('keypress', this.examine, true)
+        console.log("component destroyed")
+    }
 }
 </script>
 
@@ -236,6 +230,9 @@ export default {
         border-radius: 10px;
         overflow: hidden;
         background: palegreen;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 .back-to-home-btn {
