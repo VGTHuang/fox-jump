@@ -124,6 +124,7 @@ export default {
                 console.log("finished")
                 console.log(this.$store.state)
                 if(this.currentLevel+1 >= json.length) {
+                    // finished all levels; jump to results/finished page
                     this.$router.push({path: '/results/finished'})
                 }
                 else {

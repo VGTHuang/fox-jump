@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { finished } from 'stream';
 
 Vue.use(Vuex)
 
@@ -18,7 +19,7 @@ const store = new Vuex.Store({
     mutations: {
         addNewKeyIn(state, payload) {
             state.record[payload.level].push(payload.newKeyIn)
-        }
+        },
     },
     actions: {
         resetAllRecords({state}) {

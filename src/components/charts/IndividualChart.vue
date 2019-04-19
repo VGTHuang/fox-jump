@@ -62,7 +62,6 @@ export default {
     },
     watch: {
         data: function() {
-            console.log('data change detected')
             this.joinNewData()
         }
     },
