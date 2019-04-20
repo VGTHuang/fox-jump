@@ -156,8 +156,8 @@ export default {
             }
         },
         backToHome() {
-            this.$router.push({name: 'home'})
             this.$store.dispatch('resetAllRecords')
+            this.$router.push({name: 'home'})
         }
     },
     beforeDestroy() {

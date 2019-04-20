@@ -4,7 +4,7 @@
             results: {{isFinished}}
         </div>
         <keyboard :data="keyData"/>
-        <results-chart :data="record"/>
+        <results-chart />
     </div>
 </template>
 

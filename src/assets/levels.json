@@ -1,12 +1,12 @@
 [
     {
         "level": "Level 0",
-        "text": "q$q$q$q$q$q$q",
+        "text": "qwertyuiop$ASDFGHJKL$z x c v b n m",
         "bgColor": "red"
     },
     {
         "level": "Level 1",
-        "text": "q$q$q$q$q$q$q",
+        "text": "abcdefghijklmnopqrstuvwxyz$3.141592653589793238462643383279502",
         "bgColor": "green"
     },
     {
@@ -21,7 +21,7 @@
     },
     {
         "level": "Level 4",
-        "text": "q$q$q$q$q$q$q",
+        "text": "Gwynn y byt freuer mor yw dihent. heno gwedy colli kenueint. o anffawt vyn tauawt yt lesseint.",
         "bgColor": "blue"
     },
     {

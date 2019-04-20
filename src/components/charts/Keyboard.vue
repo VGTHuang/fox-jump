@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position: relative" @mouseenter="tooltipShown=true" @mouseleave="tooltipShown=false">
         <svg x="0" y="0" width="584" height="200" viewBox="-5 -5 584 200">
             <g class="single-key" v-for="(v,k) in keyPos" :key="k" :transform="'translate('+v.p[0]+','+v.p[1]+')'">
                 <rect
@@ -7,7 +7,7 @@
                     :width="v.p[3]-5"
                     rx="5" ry="5"
                     :style="v.style"
-                    @mouseover="showTooltip(v.data, $event)"
+                    @mouseover="showTooltip(v, $event)"
                 ></rect>
                 <g class="key-text">
                     <text class="text-u" :x="(v.p[3]-5)/3" y="13" style="text-anchor: middle;">{{v.d[0]}}</text>
@@ -15,16 +15,18 @@
                 </g>
             </g>
         </svg>
-        <div class="tooltip" v-show="tooltipShown" :style="{left: currentData.pos.x+'px', top: currentData.pos.y+'px'}">
+        <div class="tooltip" :class="{show: tooltipShown}" :style="{left: currentData.pos.x+'px', top: currentData.pos.y+'px'}">
+            <p>{{currentData.key[1]}}</p>
             <p>average: {{currentData.avg}}ms</p>
             <p>errors: {{currentData.errors}}</p>
         </div>
-        <div>{{keyPos}}</div>
     </div>
 </template>
 
 <script>
 import json from '@/assets/keyboard.json'
+import * as d3 from 'd3'
+
 export default {
     props: {
         data: Object
@@ -32,8 +34,9 @@ export default {
     data() {
         return {
             keyPos: {},
-            tooltipShown: true,
+            tooltipShown: false,
             currentData: {
+                key: "",
                 avg: "",
                 errors: "",
                 pos: {
@@ -47,12 +50,16 @@ export default {
         this.keyPos = json.key
         console.log("keyboard component created")
         // process data
+        for(var key in this.keyPos) {
+            this.keyPos[key]['data'] = {errors:0, num:0, total:0}
+        }
         for(var key in this.data) {
             if(json.charKey[key]) {
                 for(var i = 0; i < json.charKey[key].length; i++) {
                     this.keyPos[json.charKey[key][i]].data.errors += this.data[key].errors
                     this.keyPos[json.charKey[key][i]].data.num += this.data[key].num
                     this.keyPos[json.charKey[key][i]].data.total += this.data[key].total
+                    
                 }
             }
             else {
@@ -61,7 +68,7 @@ export default {
                 this.keyPos[key].data.total += this.data[key].total
             }
         }
-        for(key in this.keyPos) {
+        for(var key in this.keyPos) {
             this.keyPos[key]['style'] = this.calcKeyStyle(this.keyPos[key].data)
         }
     },
@@ -70,24 +77,30 @@ export default {
     },
     methods: {
         calcKeyStyle(vd) {
-            console.log("calc")
             if(vd.num===0) {
                 return "fill:#707070"
             }
             var avg = vd.total/vd.num
-            var re = "fill:rgb(255,"+avg/2+",0)"
+            var proj = 1-1000/(avg+1000)
+            var col =  d3.interpolateYlGnBu(proj)
+            //var col =  "red"
+            console.log(col)
+            var re = "fill:"+col
             if(vd.errors !== 0) {
-                re += "; stroke:#ff0000; stroke-width:"+this.projectErrorStroke(vd.errors)
+                re += `; stroke:${this.projectErrorStroke(vd.errors)}; stroke-width:4`
             }
             return re
         },
         projectErrorStroke(err) {
-            return -20/(err+4)+5
+            if(err>6) {
+                return d3.interpolateYlOrRd(1)
+            }
+            return d3.interpolateYlOrRd(0.4+err/10)
         },
-        showTooltip(vd, e) {
-            this.currentData.avg = vd.num===0 ? 0 : Math.floor(vd.total/vd.num)
-            this.currentData.errors = vd.errors
-            console.log(e.offsetX)
+        showTooltip(v, e) {
+            this.currentData.key = v.d
+            this.currentData.avg = v.data.num===0 ? 0 : Math.floor(v.data.total/v.data.num)
+            this.currentData.errors = v.data.errors
             this.currentData.pos.x = e.offsetX
             this.currentData.pos.y = e.offsetY
         }
@@ -99,7 +112,7 @@ export default {
 .single-key {
     cursor: pointer;
     &:hover rect {
-        stroke: #808080;
+        stroke: #403080 !important;
     }
 }
 .key-text {
@@ -121,12 +134,19 @@ export default {
     user-select: none;
 }
 .tooltip {
+    opacity: 0;
     position: absolute;
     height: 100px;
-    width: 100px;
+    width: 160px;
+    margin-top: -120px;
+    margin-left: -80px;
     background: #a0a0a0;
     background: #00000080;
-    transition: 200ms;
+    border-radius: 5px;
+    transition: 100ms;
     color: #fff;
+}
+.show {
+    opacity: 1
 }
 </style>

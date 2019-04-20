@@ -23,8 +23,9 @@ const store = new Vuex.Store({
     },
     actions: {
         resetAllRecords({state}) {
+            console.log('reset all records')
             // why this works but not forEach?
-            state.record [
+            state.record =  [
                 [],
                 [],
                 [],
