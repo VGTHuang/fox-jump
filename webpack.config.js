@@ -7,7 +7,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
     mode: 'development',
-    entry: './src/main.js',
+    entry: [
+        './src/main.js'
+    ],
+    output: {
+        filename: '[name].[contenthash].js',
+        path: path.resolve(__dirname, 'dist')
+    },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
@@ -22,7 +28,6 @@ module.exports = {
             poll: true
         }
     },
-    
     module: {
         rules: [
             {
@@ -43,6 +48,23 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ]
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'babel-loader'
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[path][name].[ext]',
+                            outputPath: 'images'
+                        },
+                    },
+                ],
             }
         ]
     },

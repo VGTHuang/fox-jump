@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import json from '@/assets/levels.json'
 export default {
     data() {
         return {
