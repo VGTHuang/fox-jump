@@ -4,7 +4,7 @@
         <transition name="center-tr">
             <div class="home-center-ctn">
                 <div class="home-titles">
-                    <div class="home-title-lg">Fox Run</div>
+                    <div class="home-title-lg">Fox Jump</div>
                     <div class="home-title-sm">test your typing speed</div>
                 </div>
                 <div class="home-btn-group">
