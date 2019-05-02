@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import * as d3 from 'd3'
+import * as d3 from './d3.min.js'
 import { mapState } from 'vuex'
 
 export default {

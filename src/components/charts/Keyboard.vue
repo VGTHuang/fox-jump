@@ -25,7 +25,6 @@
 
 <script>
 import json from '@/assets/keyboard.json'
-import * as d3 from 'd3'
 
 export default {
     props: {
@@ -82,8 +81,8 @@ export default {
             }
             var avg = vd.total/vd.num
             var proj = 1-1000/(avg+1000)
-            var col =  d3.interpolateYlGnBu(proj)
-            //var col =  "red"
+            //***************************var col =  d3.interpolateYlGnBu(proj)
+            var col = 'red'
             console.log(col)
             var re = "fill:"+col
             if(vd.errors !== 0) {
@@ -92,10 +91,13 @@ export default {
             return re
         },
         projectErrorStroke(err) {
+            /*
             if(err>6) {
                 return d3.interpolateYlOrRd(1)
             }
             return d3.interpolateYlOrRd(0.4+err/10)
+            */
+           return 'green'
         },
         showTooltip(v, e) {
             this.currentData.key = v.d

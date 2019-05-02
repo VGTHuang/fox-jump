@@ -11,7 +11,7 @@ module.exports = {
         './src/main.js'
     ],
     output: {
-        filename: '[name].[contenthash].js',
+        filename: '[name].[hash].js',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
@@ -52,7 +52,9 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: 'babel-loader'
+                use: [
+                    'babel-loader'
+                ]
             },
             {
                 test: /\.(png|jpe?g|gif)$/,
@@ -90,6 +92,7 @@ module.exports = {
             cacheGroups: {
                 default: false
             }
-        }
+        },
+        minimize: true
     }
 }

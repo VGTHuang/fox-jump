@@ -4,19 +4,19 @@
             results: {{isFinished}}
         </div>
         <keyboard :data="keyData"/>
-        <results-chart />
+        <!--<results-chart />-->
     </div>
 </template>
 
 <script>
 import Keyboard from './charts/Keyboard.vue'
-import ResultsChart from './charts/ResultsChart.vue'
+//import ResultsChart from './charts/ResultsChart.vue'
 import { mapState } from 'vuex'
 
 export default {
     components:  {
         Keyboard,
-        ResultsChart
+        //ResultsChart
     },
     data() {
         return {

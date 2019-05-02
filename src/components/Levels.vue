@@ -12,7 +12,7 @@
         </div>
         <div class="level-record-ctn">
             <div class="level-record-chart">
-                <individual-chart :lv="currentLevel"></individual-chart>
+                <!--<individual-chart :lv="currentLevel"></individual-chart>-->
             </div>
         </div>
     </div>
@@ -20,13 +20,13 @@
 
 <script>
 import json from '@/assets/levels.json'
-import IndividualChart from './charts/IndividualChart.vue'
+//import IndividualChart from './charts/IndividualChart.vue'
 import Background from './Background.vue'
 
 export default {
     name: 'Level',
     components: {
-        IndividualChart,
+        //IndividualChart,
         Background
     },
     data() {
