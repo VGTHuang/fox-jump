@@ -1,3 +1,5 @@
-# The webpage
+# Fox Jump
 
-A web application for testing your type speed
+A simple web app to test your type speed and accuracy.
+
+Made with Vue.js
